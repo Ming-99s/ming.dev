@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from './navbar'
+import Navbar from './Navbar.jsx'
 import Image from '../assets/Myimage.png'
 const words = [
     { text: 'Mobile Developer', },
@@ -7,13 +7,13 @@ const words = [
     { text: 'Graphic Designer' }
 ];
 function Hero() {
-    
+
     return (
         <div>
 
-            
 
-            <Navbar/>
+
+            <Navbar />
 
             <section className="min-h-screen flex items-center pt-20 px-6 relative overflow-hidden" data-purpose="hero-section" id="hero">
                 <div className="absolute top-0 right-0 -z-10 w-1/2 h-1/2 bg-primary/10 blur-[120px] rounded-full"></div>
@@ -30,10 +30,10 @@ function Hero() {
                                             <span key={word.text}> {word.text}</span>
                                         ))}
                                     </span>
-                                    
+
                                 </span>
-                                
-                                </h3>
+
+                            </h3>
                             <p className="text-xl text-gray-400 mb-10 leading-relaxed max-w-2xl">
                                 A Computer Science student at CADT with a passion for building exceptional digital experiences that bridge the gap between aesthetics and functionality.
                             </p>
@@ -261,7 +261,7 @@ function Hero() {
 
         </div>
 
-        )
+    )
 }
 
 export default Hero
