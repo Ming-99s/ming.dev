@@ -6,7 +6,7 @@ const words = [
     { text: 'Frontend Developer' },
     { text: 'Graphic Designer' }
 ];
-const Hero = () => {
+function Hero() {
     
     return (
         <div>
