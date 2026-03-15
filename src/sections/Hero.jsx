@@ -2,15 +2,15 @@ import React, { useRef } from 'react'
 import Navbar from './Navbar.jsx'
 import Image from '../assets/Myimage2.png'
 import SecondSection from './SecondSection.jsx'
-import ForthSection from './ForthSection.jsx';
-import GetInTouch from './GetInTouch.jsx';
-import Footer from './Footer.jsx'
+import ForthSection from './Education&Experience.jsx';
 import {useGSAP} from '@gsap/react'
 import gsap from 'gsap'
 import SplitType from 'split-type'
 import { FaGithub, FaSquareFacebook, FaSquareInstagram, FaLinkedin } from 'react-icons/fa6'
 import { SiGmail } from 'react-icons/si'
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { IoMdArrowForward } from "react-icons/io";
+import { Link } from 'react-router-dom'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -44,7 +44,7 @@ function Hero() {
             duration: 1.8,
             ease: 'expo.out',
             stagger: 0.06,
-            delay:1,
+            delay: window.innerWidth >= 768 ? 1 : 0, 
             scrollTrigger: {
                 trigger: containerRef.current,
                 start: 'top 100%',
@@ -67,6 +67,7 @@ function Hero() {
             duration: 1.2,
             ease: 'expo.Out',
             stagger: 0.2,
+            delay: window.innerWidth >= 768 ? 1 : 0, 
             scrollTrigger: {
                 trigger: containerRef.current,
                 start: 'top 80%',
@@ -178,8 +179,20 @@ function Hero() {
                 </section>
                 <SecondSection />
                 <ForthSection />
-                <GetInTouch />
-                <Footer />
+                
+                <div className='flex items-center justify-end  pr-10 gap-4'>
+
+                    <Link to='/projects' className='flex text-foreground pb-20  hover:text-gray-400 transition duration-300'>
+                        <h1 className='text-2xl'>My Project</h1>
+                        <IoMdArrowForward size={32} className='font-thin'/>  
+                    </Link>
+
+                </div>
+                
+
+                {/* <ForthSection /> */}
+                {/* <GetInTouch /> */}
+                {/* <Footer /> */}
 
 
             </div>

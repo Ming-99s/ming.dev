@@ -1,16 +1,18 @@
 import React from "react"
-import { FaReact, FaNodeJs, FaGitAlt ,FaJava} from "react-icons/fa"
+import { FaReact, FaNodeJs, FaGitAlt, FaJava, FaWindows } from "react-icons/fa"
 import {
     SiTailwindcss,
-    SiFlutter,
     SiDart,
     SiMysql,
 
 } from "react-icons/si"
-import { TbBrandWindows, TbApi, TbBrandVscode } from "react-icons/tb"
-import { BiLogoAdobe } from 'react-icons/bi'
-import { MdMovieEdit } from 'react-icons/md'
-
+import {  TbApi, } from "react-icons/tb"
+import { DiPhotoshop, DiIllustrator, DiHtml53dEffects } from "react-icons/di";
+import { BiLogoFlutter } from "react-icons/bi";
+import { FaDartLang } from "react-icons/fa6";
+import { VscVscode } from "react-icons/vsc";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 const skills = {
     frontend: [
         { name: "React.js", icon: FaReact },
@@ -23,49 +25,84 @@ const skills = {
         { name: "REST API", icon: TbApi }
     ],
     mobile: [
-        { name: "Flutter", icon: SiFlutter },
-        { name: "Dart", icon: SiDart }
+        { name: "Flutter", icon: BiLogoFlutter },
+        { name: "Dart", icon: FaDartLang }
     ],
     tools: [
         { name: "Git", icon: FaGitAlt },
-        { name: "VS Code", icon: TbBrandVscode },
-        { name: 'Photoshop', icon: BiLogoAdobe },       // generic adobe
-        { name: 'Illustrator', icon: BiLogoAdobe },
-        { name: 'After Effects', icon: MdMovieEdit },
-        { name: "Windows", icon: TbBrandWindows }
+        { name: "VS Code", icon: VscVscode },
+        { name: 'Photoshop', icon: DiPhotoshop },       // generic adobe
+        { name: 'Illustrator', icon: DiIllustrator },
+        { name: 'After Effects', icon: DiHtml53dEffects },
+        { name: "Windows", icon: FaWindows }
     ]
 }
 
+
 const SecondSection = () => {
+
+    useGSAP(() => {
+        const head = document.querySelectorAll('.head');
+        const skill = document.querySelectorAll('.skill');
+
+        gsap.from(head, {
+            xPercent: -100,
+            opacity: 0,
+            duration: 1.2,
+            ease: 'expo.out',
+            stagger: 0.3,
+            scrollTrigger: {
+                trigger: head,
+                start: 'top 80%',
+                end: 'bottom 20%',
+                toggleActions: 'play none none none'
+            }
+        })
+
+        gsap.from(skill, {
+            xPercent: -100,
+            opacity: 0,
+            ease: 'expo.out',
+            delay: 1,
+            stagger: 0.08,
+            scrollTrigger: {
+                trigger: skill,
+                start: 'top 80%',
+                end: 'bottom 20%',
+                toggleActions: 'play none none none'
+            }
+        })
+        
+    },[])
     return (
         <section className="py-24 px-6 min-h-screen" id="skills">
             <div className="container mx-auto">
 
-                <h2 className="text-3xl font-light mb-2 uppercase text-center md:text-left">
+                <h2 className="head text-3xl font-light mb-2 uppercase text-center md:text-left">
                     Skills
                 </h2>
 
-                <hr className="border-t border-gray-400 mb-8" />
+                <hr className="head border-t border-gray-400 mb-8" />
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-10 px-5">
+                <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 gap-10 px-5">
 
                     {Object.entries(skills).map(([category, list]) => (
                         <div key={category}>
-                            <h3 className="text-2xl text-gray-400 uppercase mb-4">
+                            <h3 className="head text-2xl text-gray-400 uppercase mb-4">
                                 {category}
                             </h3>
 
-                            <div className="flex flex-wrap gap-4">
+                            <div className="flex flex-wrap gap-6">
                                 {list.map((skill) => {
                                     const Icon = skill.icon
 
                                     return (
                                         <div
                                             key={skill.name}
-                                            className="flex flex-col items-center gap-2 p-4 border rounded-xl hover:border-blue-500 transition"
+                                            className="skill flex items-center gap-2 px-8 py-2 border border-foreground rounded-full text-gray-400  "
                                         >
                                             <Icon size={28} />
-                                            <span className="text-xs">{skill.name}</span>
+                                            <span className="text-xs text-foreground">{skill.name}</span>
                                         </div>
                                     )
                                 })}
