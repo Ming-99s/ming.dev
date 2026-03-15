@@ -23,7 +23,7 @@ function Navbar() {
 
     useGSAP(() => {
         gsap.from(navRef.current, {
-            yPercent: -100,
+            xPercent: -100,
             opacity: 0,
             duration: 1.2,
             ease: 'expo.out',
@@ -74,34 +74,34 @@ function Navbar() {
                 ref={navRef}
                 className="bg-background w-full max-h-14 fixed lg:fixed lg:max-w-7xl lg:bg-transparent top-0 z-50 py-4 border-b-2 lg:border-b-0"
             >
-                <div className="relative container mx-auto px-6 flex items-center justify-between">
+                <div className="relative container mx-auto px-6 flex items-center justify">
 
                     {/* Desktop nav */}
-                    <div className="hidden md:flex lg:flex-col lg:h-full lg:justify-evenly items-start space-x-8 lg:space-x-0 text-sm font-medium uppercase tracking-widest text-muted">
+                    <div className=" md:flex lg:flex-col lg:h-full lg:justify-evenly items-start space-x-8 lg:space-x-0 text-sm font-medium uppercase tracking-widest text-muted">
                         {links.map(({ href, label }) => (
                             <a
                                 key={href}
                                 href={href}
                                 
-                                className="relative group duration-200 mt-10"
+                                className="hidden lg:block relative group duration-200 mt-10"
                             >
                                 {label}
                                 <span className="absolute -bottom-1 left-0 w-0 bg-foreground h-[2px] transition-all duration-300 group-hover:w-full"></span>
                             </a>
                         ))}
                         {/* Theme toggle */}
-                        <div ref={themeRef} className="fixed lg:relative lg:pl-5 right-5 -mt-1 lg:mt-10">
-                            <ThemeToggle />
-                        </div>
-
+                    <div ref={themeRef} className="fixed top-3 right-5 z-50 lg:relative lg:pl-5 lg:mt-10">
+                        <ThemeToggle />
+                    </div>
                     </div>
 
 
 
 
 
+
                     {/* Mobile menu button */}
-                    <div className="flex md:hidden">
+                    <div className=" md:hidden ">
                         <button
                             onClick={() => setMenuOpen(o => !o)}
                             className="text-foreground"
@@ -109,10 +109,16 @@ function Navbar() {
                         >
                             {menuOpen ? <X size={24} /> : <Menu size={24} />}
                         </button>
+
                     </div>
 
                 </div>
             </nav>
+
+
+
+
+
             {/* Copyright */}
             <div
                 ref={copyrightRef}

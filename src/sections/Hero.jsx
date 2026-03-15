@@ -10,6 +10,9 @@ import gsap from 'gsap'
 import SplitType from 'split-type'
 import { FaGithub, FaSquareFacebook, FaSquareInstagram, FaLinkedin } from 'react-icons/fa6'
 import { SiGmail } from 'react-icons/si'
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 const words = [
     { text: 'Mobile Developer' },
@@ -19,24 +22,35 @@ const words = [
 
 function Hero() {
     const imageRef = useRef(null);
+    const containerRef = useRef(null)
     useGSAP(() => {
         const hereoSlipt = new SplitType('.title', { type: 'chars' });
-        const paragraphSlipt = new SplitType('.subtitle', { type: 'lines' });
-        
+        const icon = containerRef.current.querySelectorAll(".icon")
+        const paragraphSlipt = document.querySelectorAll(".subtitle");
+
+
 
         gsap.from(hereoSlipt.chars, {
             yPercent: 100,
             duration: 1.8,
             ease: 'expo.out',
-            stagger: 0.05
+            stagger: 0.05,
+            opacity:0,
+            delay:1
         })
 
-        gsap.from(paragraphSlipt.lines, {
+        gsap.from(paragraphSlipt, {
             opacity: 0,
             duration: 1.8,
             ease: 'expo.out',
             stagger: 0.06,
-            delay:1
+            delay:1,
+            scrollTrigger: {
+                trigger: containerRef.current,
+                start: 'top 100%',
+                end: 'bottom 20%',
+                toggleActions: 'play none none none'
+            }
         })
 
         gsap.from(imageRef.current, {
@@ -46,6 +60,23 @@ function Hero() {
             ease: 'expo.out',
             delay:1
         })
+
+        gsap.from(icon, {
+            opacity: 0,
+            x: -50,
+            duration: 1.2,
+            ease: 'expo.Out',
+            stagger: 0.2,
+            scrollTrigger: {
+                trigger: containerRef.current,
+                start: 'top 80%',
+                end:'bottom 20%',
+                toggleActions: 'play none none none'
+            }
+            
+        })
+
+        
         
 
 
@@ -77,7 +108,7 @@ function Hero() {
                                     </h1>
                                     <h3 className=" text-xl md:text-2xl ml-2 font text-muted mb-2">
                                         <span className="slide">
-                                            <span className="title wrapper">
+                                            <span className="title wrapper text-center lg:text-start">
                                                 {words.map((word) => {
                                                     const Icon = word.icon;
                                                     return (
@@ -95,11 +126,11 @@ function Hero() {
                                         that bridge the gap between aesthetics and functionality.
                                     </p> */}
                                 
-                                <section className="mt-5 px-5 lg:mt-20 lg:mr-20" data-purpose="about-section" id="about">
+                                <section className="mt-5 px-5 lg:px-0 lg:mt-20 lg:mr-20" data-purpose="about-section" id="about">
                                     <div className="container ">
                                         <div className="">
                                             <div className="subtitle">
-                                                <h2 className="text-3xl font-light mb-2 flex items-center">
+                                                <h2 className="text-xl lg:text-2xl font-light mb-2 text-center w-full lg:text-start uppercase">
                                                     About Me
                                                 </h2>
                                                 <hr className='mb-8 border-t-1 border-gray-400'></hr>
@@ -117,12 +148,12 @@ function Hero() {
 
 
                                             </div>
-                                            <div className='relative flex z-50 flex-row justify-between px-2 gap-4 w-full items-center pt-10 lg:justify-end lg:gap-8'>
-                                                <a href='#' > <FaGithub size={32} className="text-foreground" /></a>
-                                                <a href='#'><FaSquareFacebook size={32} className="text-foreground" /></a>
-                                                <a href='#'><FaSquareInstagram size={32} className="text-foreground" /></a>
-                                                <a href='#'><FaLinkedin size={32} className="text-foreground" /></a>
-                                                <a href='#'><SiGmail size={32} className="text-foreground" /></a>
+                                            <div ref={containerRef} className='relative flex flex-row justify-between px-2 gap-4 w-full items-center pt-10 lg:justify-end lg:gap-8'>
+                                                <a href='#' className='icon'> <FaGithub size={32} className="text-foreground" /></a>
+                                                <a href='#' className='icon'><FaSquareFacebook size={32} className="text-foreground" /></a>
+                                                <a href='#' className='icon'><FaSquareInstagram size={32} className="text-foreground" /></a>
+                                                <a href='#' className='icon'><FaLinkedin size={32} className="text-foreground" /></a>
+                                                <a href='#' className='icon'><SiGmail size={32} className="text-foreground" /></a>
                                                 
                                                 
                                                 
@@ -137,7 +168,7 @@ function Hero() {
 
                             </div>
                             
-                            <div ref={imageRef} className='title relative right-10 lg:max-w-2xl lg:absolute lg:right-0 lg:bottom-0'>
+                            <div ref={imageRef} className='title relative right-8 lg:max-w-2xl lg:absolute lg:right-0 lg:bottom-0'>
                                 <img  src={Image} alt="pheng lyming" />
 
                             </div>

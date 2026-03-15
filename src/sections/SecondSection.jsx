@@ -1,51 +1,84 @@
-import React from 'react'
+import React from "react"
+import { FaReact, FaNodeJs, FaGitAlt ,FaJava} from "react-icons/fa"
+import {
+    SiTailwindcss,
+    SiFlutter,
+    SiDart,
+    SiMysql,
+
+} from "react-icons/si"
+import { TbBrandWindows, TbApi, TbBrandVscode } from "react-icons/tb"
+import { BiLogoAdobe } from 'react-icons/bi'
+import { MdMovieEdit } from 'react-icons/md'
+
+const skills = {
+    frontend: [
+        { name: "React.js", icon: FaReact },
+        { name: "Tailwind CSS", icon: SiTailwindcss }
+    ],
+    backend: [
+        { name: "Node.js", icon: FaNodeJs },
+        { name: "Java", icon: FaJava },
+        { name: "MySQL", icon: SiMysql },
+        { name: "REST API", icon: TbApi }
+    ],
+    mobile: [
+        { name: "Flutter", icon: SiFlutter },
+        { name: "Dart", icon: SiDart }
+    ],
+    tools: [
+        { name: "Git", icon: FaGitAlt },
+        { name: "VS Code", icon: TbBrandVscode },
+        { name: 'Photoshop', icon: BiLogoAdobe },       // generic adobe
+        { name: 'Illustrator', icon: BiLogoAdobe },
+        { name: 'After Effects', icon: MdMovieEdit },
+        { name: "Windows", icon: TbBrandWindows }
+    ]
+}
 
 const SecondSection = () => {
-  return (
-      <section className="py-24 px-6 min-h-screen" data-purpose="skills-section" id="skills">
-          <div className="container mx-auto">
-              <h2 className="text-3xl font-bold mb-12 flex items-center justify-center md:justify-start">
-                  <span className="text-primary mr-4 font-mono">02.</span> Tech Stack
-              </h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-6">
-                  <div className="glass-card p-6 flex flex-col items-center justify-center rounded-custom hover:border-primary transition-all group">
-                      <div className="text-primary mb-3 transform group-hover:scale-110 transition-transform">
-                          <svg className="w-10 h-10" fill="currentColor" viewbox="0 0 24 24"><path d="M14.33 10l-2.83-2.83L14.33 4.34l2.83 2.83-2.83 2.83zM6.59 8.17l2.83 2.83-2.83 2.83-2.83-2.83 2.83-2.83zM14.33 21.66l-2.83-2.83 2.83-2.83 2.83 2.83-2.83 2.83zM18.83 14.34l-2.83-2.83 2.83-2.83 2.83 2.83-2.83 2.83z"></path></svg>
-                      </div>
-                      <span className="font-bold text-sm">Flutter</span>
-                  </div>
-                  <div className="glass-card p-6 flex flex-col items-center justify-center rounded-custom hover:border-primary transition-all group">
-                      <span className="text-primary text-2xl font-bold mb-3 group-hover:scale-110 transition-transform">JS</span>
-                      <span className="font-bold text-sm">JavaScript</span>
-                  </div>
-                  <div className="glass-card p-6 flex flex-col items-center justify-center rounded-custom hover:border-primary transition-all group">
-                      <span className="text-primary text-2xl font-bold mb-3 group-hover:scale-110 transition-transform">R</span>
-                      <span className="font-bold text-sm">React</span>
-                  </div>
-                  <div className="glass-card p-6 flex flex-col items-center justify-center rounded-custom hover:border-primary transition-all group">
-                      <span className="text-primary text-2xl font-bold mb-3 group-hover:scale-110 transition-transform">N</span>
-                      <span className="font-bold text-sm">Node.js</span>
-                  </div>
-                  <div className="glass-card p-6 flex flex-col items-center justify-center rounded-custom hover:border-primary transition-all group">
-                      <span className="text-primary text-2xl font-bold mb-3 group-hover:scale-110 transition-transform">G</span>
-                      <span className="font-bold text-sm">Git</span>
-                  </div>
-                  <div className="glass-card p-6 flex flex-col items-center justify-center rounded-custom hover:border-primary transition-all group">
-                      <span className="text-primary text-2xl font-bold mb-3 group-hover:scale-110 transition-transform">Ps</span>
-                      <span className="font-bold text-sm">Photoshop</span>
-                  </div>
-                  <div className="glass-card p-6 flex flex-col items-center justify-center rounded-custom hover:border-primary transition-all group">
-                      <span className="text-primary text-2xl font-bold mb-3 group-hover:scale-110 transition-transform">Ai</span>
-                      <span className="font-bold text-sm">Illustrator</span>
-                  </div>
-                  <div className="glass-card p-6 flex flex-col items-center justify-center rounded-custom hover:border-primary transition-all group">
-                      <span className="text-primary text-2xl font-bold mb-3 group-hover:scale-110 transition-transform">Ae</span>
-                      <span className="font-bold text-sm">After Effects</span>
-                  </div>
-              </div>
-          </div>
-      </section>
-  )
+    return (
+        <section className="py-24 px-6 min-h-screen" id="skills">
+            <div className="container mx-auto">
+
+                <h2 className="text-3xl font-light mb-2 uppercase text-center md:text-left">
+                    Skills
+                </h2>
+
+                <hr className="border-t border-gray-400 mb-8" />
+
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-10 px-5">
+
+                    {Object.entries(skills).map(([category, list]) => (
+                        <div key={category}>
+                            <h3 className="text-2xl text-gray-400 uppercase mb-4">
+                                {category}
+                            </h3>
+
+                            <div className="flex flex-wrap gap-4">
+                                {list.map((skill) => {
+                                    const Icon = skill.icon
+
+                                    return (
+                                        <div
+                                            key={skill.name}
+                                            className="flex flex-col items-center gap-2 p-4 border rounded-xl hover:border-blue-500 transition"
+                                        >
+                                            <Icon size={28} />
+                                            <span className="text-xs">{skill.name}</span>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+
+                        </div>
+                    ))}
+
+                </div>
+
+            </div>
+        </section>
+    )
 }
 
 export default SecondSection
