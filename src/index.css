@@ -79,6 +79,11 @@ body {
   animation-fill-mode: both
 }
 
+.project-text {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
 @keyframes wordSlider {
   0% {
     transform: translateY(0.5%);

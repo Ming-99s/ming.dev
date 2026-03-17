@@ -87,7 +87,7 @@ const ProjectsSection = () => {
       ScrollTrigger.getAll().forEach(t => t.kill())
     }
 
-  }, { scope: containerRef })
+  }, { scope: containerRef }) 
 
   return (
     <section>
@@ -114,10 +114,11 @@ const ProjectsSection = () => {
 
               {/* text cards — stacked, switched by GSAP */}
               <div className="relative">
-                {projects.map((project) => (
+                {projects.map((project, i) => (
                   <div
                     key={project.id}
                     className="project-text absolute top-0 left-0 w-full"
+                    style={i === 0 ? { opacity: 1, transform: 'translateY(0)' } : {}}
                   >
                     <span className="text-xs font-light text-muted uppercase tracking-widest mb-4 block">
                       {project.id} / {String(projects.length).padStart(2, '0')}
