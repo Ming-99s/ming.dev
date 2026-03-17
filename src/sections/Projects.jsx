@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -41,14 +41,9 @@ const projects = [
 
 const ProjectsSection = () => {
   const containerRef = useRef(null)
+  const [activeIndex, setActiveIndex] = useState(0)
 
   useGSAP(() => {
-    // ← force initial state FIRST before anything else
-    containerRef.current.querySelectorAll('.project-text').forEach((el, i) => {
-      gsap.set(el, { opacity: i !== 0 ? 0 : 1, y: i !== 0 ? 10 : 0 })
-    })
-
-    // heading entrance
     gsap.fromTo('.projects-heading',
       { opacity: 0, y: 30 },
       {
@@ -61,33 +56,19 @@ const ProjectsSection = () => {
       }
     )
 
-    function setActive(index) {
-      containerRef.current.querySelectorAll('.project-text').forEach((el, i) => {
-        if (i === index) {
-          gsap.to(el, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' })
-        } else {
-          gsap.to(el, { opacity: 0, y: 10, duration: 0.3, ease: 'power2.in' })
-        }
-      })
-    }
-
     projects.forEach((_, i) => {
       ScrollTrigger.create({
         trigger: `.media-item-${i}`,
         start: 'top 50%',
         end: 'bottom 50%',
-        onEnter: () => setActive(i),
-        onEnterBack: () => setActive(i),
+        onEnter: () => setActiveIndex(i),
+        onEnterBack: () => setActiveIndex(i),
       })
     })
 
-    setActive(0)
+    return () => ScrollTrigger.getAll().forEach(t => t.kill())
 
-    return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill())
-    }
-
-  }, { scope: containerRef }) 
+  }, { scope: containerRef })
 
   return (
     <section>
@@ -106,19 +87,21 @@ const ProjectsSection = () => {
           <div className="hidden lg:block w-80 xl:w-96 shrink-0">
             <div className="sticky top-36">
 
-              {/* desktop header — outside the loop, renders once */}
               <h2 className="projects-heading text-3xl font-light mb-2 uppercase">
                 Projects
               </h2>
               <hr className="border-t border-border mb-12" />
 
-              {/* text cards — stacked, switched by GSAP */}
               <div className="relative">
                 {projects.map((project, i) => (
                   <div
                     key={project.id}
-                    className="project-text absolute top-0 left-0 w-full"
-                    style={i === 0 ? { opacity: 1, transform: 'translateY(0)' } : {}}
+                    className="project-text absolute top-0 left-0 w-full transition-all duration-300"
+                    style={{
+                      opacity: activeIndex === i ? 1 : 0,
+                      transform: activeIndex === i ? 'translateY(0)' : 'translateY(10px)',
+                      pointerEvents: activeIndex === i ? 'auto' : 'none',
+                    }}
                   >
                     <span className="text-xs font-light text-muted uppercase tracking-widest mb-4 block">
                       {project.id} / {String(projects.length).padStart(2, '0')}
@@ -159,7 +142,7 @@ const ProjectsSection = () => {
                   </div>
                 ))}
 
-                {/* spacer — gives the relative container height */}
+                {/* spacer */}
                 <div className="invisible pointer-events-none">
                   <span className="text-xs mb-4 block">00/00</span>
                   <h3 className="text-4xl mb-4">placeholder title here</h3>
