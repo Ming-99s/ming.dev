@@ -65,7 +65,7 @@ function Hero() {
             ease: 'expo.out',
             scrollTrigger: {
                 trigger: bottomRef.current,
-                start: 'top 100%',
+                start: 'top 90%',
                 toggleActions: 'play none none none'
             }
         }, { scope: bottomRef })
