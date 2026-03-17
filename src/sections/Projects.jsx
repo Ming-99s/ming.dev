@@ -42,48 +42,52 @@ const projects = [
 const ProjectsSection = () => {
   const containerRef = useRef(null)
 
-    useGSAP(() => {
-      // heading entrance
-      gsap.fromTo('.projects-heading',
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '.projects-heading',
-            start: 'top 85%',
-            toggleActions: 'play none none reverse'
-          }
+  useGSAP(() => {
+    // ← force initial state FIRST before anything else
+    containerRef.current.querySelectorAll('.project-text').forEach((el, i) => {
+      gsap.set(el, { opacity: i !== 0 ? 0 : 1, y: i !== 0 ? 10 : 0 })
+    })
+
+    // heading entrance
+    gsap.fromTo('.projects-heading',
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.projects-heading',
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
         }
-      )
-
-      // switch active text panel on scroll
-      function setActive(index) {
-        containerRef.current.querySelectorAll('.project-text').forEach((el, i) => {
-          if (i === index) {
-            gsap.to(el, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' })
-          } else {
-            gsap.to(el, { opacity: 0, y: 10, duration: 0.3, ease: 'power2.in' })
-          }
-        })
       }
+    )
 
-      projects.forEach((_, i) => {
-        ScrollTrigger.create({
-          trigger: `.media-item-${i}`,
-          start: 'top 50%',
-          end: 'bottom 50%',
-          onEnter: () => setActive(i),
-          onEnterBack: () => setActive(i),
-        })
+    function setActive(index) {
+      containerRef.current.querySelectorAll('.project-text').forEach((el, i) => {
+        if (i === index) {
+          gsap.to(el, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' })
+        } else {
+          gsap.to(el, { opacity: 0, y: 10, duration: 0.3, ease: 'power2.in' })
+        }
       })
+    }
 
-      setActive(0)
+    projects.forEach((_, i) => {
+      ScrollTrigger.create({
+        trigger: `.media-item-${i}`,
+        start: 'top 50%',
+        end: 'bottom 50%',
+        onEnter: () => setActive(i),
+        onEnterBack: () => setActive(i),
+      })
+    })
 
-      return () => {
-        ScrollTrigger.getAll().forEach(t => t.kill())
-      }
-      
-    }, { scope: containerRef })
+    setActive(0)
+
+    return () => {
+      ScrollTrigger.getAll().forEach(t => t.kill())
+    }
+
+  }, { scope: containerRef })
 
   return (
     <section>
@@ -110,14 +114,10 @@ const ProjectsSection = () => {
 
               {/* text cards — stacked, switched by GSAP */}
               <div className="relative">
-                {projects.map((project, i) => (
+                {projects.map((project) => (
                   <div
                     key={project.id}
                     className="project-text absolute top-0 left-0 w-full"
-                    style={{
-                      opacity: i !== 0 ? 0 : 1,
-                      transform: i !== 0 ? 'translateY(10px)' : 'translateY(0)',
-                    }}
                   >
                     <span className="text-xs font-light text-muted uppercase tracking-widest mb-4 block">
                       {project.id} / {String(projects.length).padStart(2, '0')}
