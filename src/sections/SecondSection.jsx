@@ -1,5 +1,5 @@
 import React from "react"
-import { FaReact, FaNodeJs, FaGitAlt, FaJava, FaWindows } from "react-icons/fa"
+import { FaReact, FaNodeJs, FaGitAlt, FaJava, FaWindows, FaHtml5, FaCss3Alt } from "react-icons/fa"
 import {
     SiTailwindcss,
     SiDart,
@@ -12,11 +12,17 @@ import { BiLogoFlutter } from "react-icons/bi";
 import { FaDartLang } from "react-icons/fa6";
 import { VscVscode } from "react-icons/vsc";
 import { useGSAP } from "@gsap/react";
+import { IoLogoJavascript } from "react-icons/io5";
 import gsap from "gsap";
 const skills = {
     frontend: [
         { name: "React.js", icon: FaReact },
-        { name: "Tailwind CSS", icon: SiTailwindcss }
+        { name: "Tailwind CSS", icon: SiTailwindcss },
+        { name: "Javascript", icon: IoLogoJavascript },
+        { name: "HTML", icon: FaHtml5 },
+        { name: "CSS", icon: FaCss3Alt }
+
+
     ],
     backend: [
         { name: "Node.js", icon: FaNodeJs },
@@ -75,7 +81,7 @@ const SecondSection = () => {
         
     },[])
     return (
-        <section className="py-24 px-6 min-h-screen" id="skills">
+        <section className="pt-24 px-6 lg:min-h-screen" id="skills">
             <div className="container mx-auto">
 
                 <h2 className="head text-3xl font-light mb-2 uppercase text-center md:text-left">

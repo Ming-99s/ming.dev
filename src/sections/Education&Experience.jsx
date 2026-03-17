@@ -97,16 +97,15 @@ const timelineData = [
     },
 ]
 
-const TimelineSection = ({ label, icon: icon }) => {
+const TimelineSection = ({ label}) => {
     const ref = useRef(null)
-    const SectionIcon = icon
 
     useEffect(() => {
         gsap.fromTo(ref.current,
             { opacity: 0, x: -30 },
             {
                 opacity: 1, x: 0, duration: 0.6,
-                scrollTrigger: { trigger: ref.current, start: 'top 85%' }
+                scrollTrigger: { trigger: ref.current, start: 'top 85%', toggleActions: 'play none none reverse' }
             }
         )
     }, [])
@@ -136,7 +135,11 @@ const TimelineItem = ({ item }) => {
         const animate = (dot, line, left, right) => {
             if (!dot.current) return
             const tl = gsap.timeline({
-                scrollTrigger: { trigger: wrapperRef.current, start: 'top 88%' }
+                scrollTrigger: {
+                    trigger: wrapperRef.current, start: window.innerWidth >= 768 ? 'top 80%' : 'top 70%' ,
+                    toggleActions: 'play none none reverse'
+
+                 }
             })
             tl.fromTo(dot.current,
                 { scale: 0, opacity: 0 },
@@ -221,25 +224,17 @@ const TimelineItem = ({ item }) => {
 }
 
 const ForthSection = () => {
-    const containerRef = useRef(null)
-
-    useGSAP(() => {
-        gsap.fromTo('.timeline-title',
-            { opacity: 0, y: 30 },
-            {
-                opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
-                scrollTrigger: { trigger: '.timeline-title', start: 'top 85%' }
-            }
-        )
-    }, { scope: containerRef })
 
     return (
-        <section ref={containerRef} className="py-24 px-6" id="experience">
-            <div className="container mx-auto">
-                <h2 className="timeline-title text-3xl font-light mb-2 uppercase">
-                    Journey
-                </h2>
-                <hr className="border-t border-gray-400 mb-12" />
+        <section className="py-24 px-6" id="experience">
+            <div className=" container mx-auto">
+                <div className='head'>
+                    <h2 className="timeline-title text-3xl font-light mb-2 uppercase text-center md:text-start ">
+                        Journey
+                    </h2>
+                    <hr className="border-t border-gray-400 mb-12" />
+
+                </div>
 
                 <div className="relative">
                     {timelineData.map((entry, i) =>

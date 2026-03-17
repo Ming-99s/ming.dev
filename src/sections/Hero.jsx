@@ -11,6 +11,7 @@ import { SiGmail } from 'react-icons/si'
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { IoMdArrowForward } from "react-icons/io";
 import { Link } from 'react-router-dom'
+import { Copyright } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -23,10 +24,13 @@ const words = [
 function Hero() {
     const imageRef = useRef(null);
     const containerRef = useRef(null)
+    const bottomRef = useRef(null)
+
     useGSAP(() => {
         const hereoSlipt = new SplitType('.title', { type: 'chars' });
         const icon = containerRef.current.querySelectorAll(".icon")
         const paragraphSlipt = document.querySelectorAll(".subtitle");
+        const bottomNav = document.querySelectorAll(".bottom");
 
 
 
@@ -46,12 +50,25 @@ function Hero() {
             stagger: 0.06,
             delay: window.innerWidth >= 768 ? 1 : 0, 
             scrollTrigger: {
-                trigger: containerRef.current,
-                start: 'top 100%',
+                trigger: paragraphSlipt,
+                start: 'top 80%',
                 end: 'bottom 20%',
                 toggleActions: 'play none none none'
             }
         })
+
+        gsap.from(bottomNav, {
+            opacity: 0,
+            duration: 0.5,
+            x: -50,
+            stagger:0.1,
+            ease: 'expo.out',
+            scrollTrigger: {
+                trigger: bottomRef.current,
+                start: 'top 100%',
+                toggleActions: 'play none none none'
+            }
+        }, { scope: bottomRef })
 
         gsap.from(imageRef.current, {
             opacity: 0,
@@ -70,14 +87,13 @@ function Hero() {
             delay: window.innerWidth >= 768 ? 1 : 0, 
             scrollTrigger: {
                 trigger: containerRef.current,
-                start: 'top 80%',
+                start: window.innerWidth >=  768 ? 'top 80%' :'top 50%',
                 end:'bottom 20%',
                 toggleActions: 'play none none none'
             }
             
         })
 
-        
         
 
 
@@ -90,16 +106,14 @@ function Hero() {
 
                 <section
 
-                    className="min-h-screen flex pt-28 relative overflow-hidden font-sans"
+                    className="lg:min-h-screen md:w-full flex pt-28 font-sans justify-center"
                     data-purpose="hero-section"
                     id="hero"
                 >
 
 
-                    {/* Ambient glow — adapts to theme */}
-                    <div className="absolute top-0 right-0 -z-10 w-1/2 h-1/2 bg-primary/10 blur-[120px] rounded-full" />
 
-                    <div className="container mx-auto lg:pl-5 ">
+                    <div className="container">
                         <div className="flex flex-col-reverse md:flex lg:flex">
                             <div className="max-w-3xl flex-col items-center">
                                 <div className='flex flex-col justify-center items-center lg:items-start'>
@@ -122,10 +136,7 @@ function Hero() {
                                         </span>
                                     </h3>
                                 </div>
-                                {/* <p className="text-sm text-muted mb-10 leading-relaxed max-w-lg">
-                                        A Computer Science student at CADT with a passion for building exceptional digital experiences
-                                        that bridge the gap between aesthetics and functionality.
-                                    </p> */}
+
                                 
                                 <section className="mt-5 px-5 lg:px-0 lg:mt-20 lg:mr-20" data-purpose="about-section" id="about">
                                     <div className="container ">
@@ -169,7 +180,7 @@ function Hero() {
 
                             </div>
                             
-                            <div ref={imageRef} className='title relative right-8 lg:max-w-2xl lg:absolute lg:right-0 lg:bottom-0'>
+                            <div ref={imageRef} className='relative right-8 lg:max-w-2xl lg:absolute lg:right-0 lg:bottom-0'>
                                 <img  src={Image} alt="pheng lyming" />
 
                             </div>
@@ -180,14 +191,30 @@ function Hero() {
                 <SecondSection />
                 <ForthSection />
                 
-                <div className='flex items-center justify-end  pr-10 gap-4'>
+                <div ref={bottomRef} className='relative flex justify-end'>
+                    <div
+                        className="lg:hidden absolute bottom-5 left-5 p-r text-xs md:flex hidden items-center bottom"
+                    >
+                        <Copyright size={20} />
+                        <span className="ml-1">Pheng Lyming</span>
+                    </div>
 
-                    <Link to='/projects' className='flex text-foreground pb-20  hover:text-gray-400 transition duration-300'>
-                        <h1 className='text-2xl'>My Project</h1>
-                        <IoMdArrowForward size={32} className='font-thin'/>  
-                    </Link>
+                    <div className=' flex flex-col items-end justify-center  pr-10 gap-4'>
+
+                        <Link to='/projects' className='bottom flex text-foreground pb-5  hover:text-gray-400 transition duration-300'>
+                            <h1 className='text-2xl'>My Project</h1>
+                            <IoMdArrowForward size={32} className='font-thin'/>  
+                        </Link>
+
+                        <Link to='/' className='bottom flex text-foreground pb-10  hover:text-gray-400 transition duration-300'>
+                            <h1 className='text-2xl'>Contact</h1>
+                            <IoMdArrowForward size={32} className='font-thin' />
+                        </Link>
+
+                    </div>
 
                 </div>
+
                 
 
                 {/* <ForthSection /> */}

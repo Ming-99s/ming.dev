@@ -3,6 +3,7 @@ import ThemeToggle from '../components/ThemeToggle.jsx'
 import { Copyright, Menu, X } from 'lucide-react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
+import { Link } from 'react-router-dom'
 
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false)
@@ -13,9 +14,9 @@ function Navbar() {
     const mobileMenuRef = useRef(null)
 
     const links = [
-        { href: '#about', label: 'About' },
-        { href: '#projects', label: 'Projects' },
-        { href: '#contact', label: 'Contact' },
+        { to: '/', label: 'About' },
+        { to: '/projects', label: 'Projects' },
+        { to: '/', label: 'Contact' },
     ]
 
 
@@ -75,17 +76,17 @@ function Navbar() {
                 <div className="relative container mx-auto px-6 flex items-center justify">
 
                     {/* Desktop nav */}
-                    <div className=" md:flex lg:flex-col lg:h-full lg:justify-evenly items-start space-x-8 lg:space-x-0 text-sm font-medium uppercase tracking-widest text-muted">
-                        {links.map(({ href, label }) => (
-                            <a
-                                key={href}
-                                href={href}
+                    <div className=" md:flex lg:flex-col lg:h-full lg:justify-evenly items-start gap-4  text-sm font-medium uppercase text-muted">
+                        {links.map(({ to, label }) => (
+                            <Link
+                                key={to}
+                                to={to}
                                 
-                                className="hidden lg:block relative group duration-200 mt-10"
+                                className="hidden md:block lg:block relative group duration-200 lg:mt-10 md:mt-0"
                             >
                                 {label}
                                 <span className="absolute -bottom-1 left-0 w-0 bg-foreground h-[2px] transition-all duration-300 group-hover:w-full"></span>
-                            </a>
+                            </Link>
                         ))}
                         {/* Theme toggle */}
                     <div ref={themeRef} className="fixed top-3 right-5 z-50 lg:relative lg:pl-5 lg:mt-10">
@@ -132,15 +133,15 @@ function Navbar() {
                     ref={mobileMenuRef}
                     className="fixed z-50 md:hidden top-14 w-full px-6 pt-4 pb-6 flex flex-col gap-4 text-sm font-medium uppercase tracking-widest text-muted bg-card border-t border-border"
                 >
-                    {links.map(({ href, label }) => (
-                        <a
-                            key={href}
-                            href={href}
+                    {links.map(({ to, label }) => (
+                        <Link
+                            key={to}
+                            to={to}
                             onClick={() => setMenuOpen(false)}
                             className="hover:text-primary transition-colors duration-200"
                         >
                             {label}
-                        </a>
+                        </Link>
                     ))}
 
                     <div className="text-xs mt-1">
