@@ -16,7 +16,7 @@ function Navbar() {
     const links = [
         { to: '/', label: 'About' },
         { to: '/projects', label: 'Projects' },
-        { to: '/', label: 'Contact' },
+        { to: '/GetInTouch', label: 'Contact' },
     ]
 
 

@@ -1,29 +1,249 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
+import Navbar from './Navbar.jsx'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { FaGithub, FaSquareFacebook, FaSquareInstagram, FaLinkedin } from 'react-icons/fa6'
+
+gsap.registerPlugin(ScrollTrigger)
+
+// ─── info ────────────────────────────────────────────────────────
+const INFO = {
+    location: 'Kandal, Cambodia',
+    phone: '+855 98 32 38 78',
+    telegram: '@LeMinggg',
+    telegramLink: 'https://t.me/LeMinggg',
+    github: 'Ming-99s',
+    githubLink: 'https://github.com/Ming-99s',
+    instagram: '@lyminggg_',
+    instagramLink: 'https://www.instagram.com/lyminggg_/',
+    facebook: 'Ming',
+    facebookLink: 'https://www.facebook.com/ming.123142',
+    linkedin: 'Ming Lyy',
+    linkedinLink: 'https://www.linkedin.com/in/ming-lyy-67a2bb372/',
+}
+
+// ─── data ────────────────────────────────────────────────────────
+const infoRows = [
+    { label: 'Based in', value: INFO.location },
+    { label: 'Phone', value: INFO.phone, href: `tel:${INFO.phone}` },
+    { label: 'Telegram', value: INFO.telegram, href: INFO.telegramLink },
+]
+
+const connectLinks = [
+    { href: INFO.githubLink, icon: FaGithub, label: 'GitHub', username: INFO.github },
+    { href: INFO.instagramLink, icon: FaSquareInstagram, label: 'Instagram', username: INFO.instagram },
+    { href: INFO.facebookLink, icon: FaSquareFacebook, label: 'Facebook', username: INFO.facebook },
+    { href: INFO.linkedinLink, icon: FaLinkedin, label: 'LinkedIn', username: INFO.linkedin },
+]
+
+// ─── reusable components ─────────────────────────────────────────
+
+const InfoRow = ({ label, value, href }) => (
+    <div className="contact-info-item">
+        <p className="text-xs uppercase tracking-widest text-muted font-light mb-2">{label}</p>
+        {href ? (
+            <a
+                href={href}
+                target={href.startsWith('http') ? '_blank' : undefined}
+                rel="noopener noreferrer"
+                className="text-xl font-light text-foreground hover:text-foreground transition-colors duration-200 inline-flex items-center gap-3"
+            >
+                {value}
+                {href.startsWith('http') && <span className="text-muted text-sm">↗</span>}
+            </a>
+        ) : (
+            <p className="text-xl font-light text-foreground">{value}</p>
+        )}
+    </div>
+)
+
+const ConnectItem = ({ href, icon, label, username }) => {
+    const Icon = icon
+    return (
+        <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-10 connect-item group flex items-center justify-between py-6 border-b border-border sm:flex-1 hover:px-4 transition-all duration-300"
+        >
+            <div className="flex items-center gap-5">
+                <Icon size={32} />
+                <div className="flex flex-col gap-1">
+                    <span className="text-xs uppercase tracking-widest text-muted font-light">{label}</span>
+                    <span className="text-lg font-light text-foreground group-hover:text-foreground transition-colors duration-200">
+                        {username}
+                    </span>
+                </div>
+            </div>
+            <span className="text-muted group-hover:text-foreground transition-colors duration-200 text-lg">↗</span>
+        </a>
+    )
+}
+
+// ─── main component ───────────────────────────────────────────────
 
 const GetInTouch = () => {
-  return (
-      <section className="py-32 px-6" data-purpose="contact-section" id="contact">
-          <div className="container mx-auto text-center max-w-2xl">
-              <h2 className="text-primary font-mono mb-4 tracking-widest uppercase">05. What's Next?</h2>
-              <h1 className="text-5xl font-bold mb-8">Get In Touch</h1>
-              <p className="text-gray-400 text-lg mb-12">
-              </p>
-              <div className="glass-card p-8 rounded-custom mb-8 space-y-6">
-                  <div className="flex items-center justify-center space-x-4">
-                      <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-                      <a className="text-xl font-medium hover:text-primary transition-colors" href="mailto:Lyming4999@gmail.com">Lyming4999@gmail.com</a>
-                  </div>
-                  <div className="flex items-center justify-center space-x-4">
-                      <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-                      <span className="text-xl font-medium">+855 (Contact Info)</span>
-                  </div>
-              </div>
-              <a className="inline-block px-10 py-5 border-2 border-primary text-primary font-bold text-lg rounded-custom hover:bg-primary/10 transition-all" href="mailto:Lyming4999@gmail.com">
-                  Say Hello
-              </a>
-          </div>
-      </section>
-  )
+    const containerRef = useRef(null)
+    const [sent, setSent] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(false)
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        setLoading(true)
+        setError(false)
+
+        const res = await fetch('https://formspree.io/f/mpqykaqb', {
+            method: 'POST',
+            body: new FormData(e.target),
+            headers: { Accept: 'application/json' },
+        })
+
+        res.ok ? setSent(true) : setError(true)
+        setLoading(false)
+    }
+
+    useGSAP(() => {
+        gsap.fromTo('.contact-heading',
+            { opacity: 0, x: -30 },
+            {
+                opacity: 1, x: 0, duration: 0.9, ease: 'power3.out',
+                scrollTrigger: { trigger: '.contact-heading', start: 'top 85%', toggleActions: 'play none none reverse' }
+            }
+        )
+        gsap.fromTo('.contact-info-item',
+            { opacity: 0, y: 24 },
+            {
+                opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.1,
+                scrollTrigger: { trigger: '.contact-info-item', start: 'top 85%', toggleActions: 'play none none reverse' }
+            }
+        )
+        gsap.fromTo('.contact-form',
+            { opacity: 0, y: 30 },
+            {
+                opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
+                scrollTrigger: { trigger: '.contact-form', start: 'top 85%', toggleActions: 'play none none reverse' }
+            }
+        )
+        gsap.fromTo('.connect-item',
+            { opacity: 0, y: 16 },
+            {
+                opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.12,
+                scrollTrigger: { trigger: '.connect-item', start: 'top 80%', toggleActions: 'play none none reverse' }
+            }
+        )
+    }, { scope: containerRef })
+
+    return (
+        <section ref={containerRef} className="min-h-screen pb-32" id="contact">
+            <Navbar />
+
+            <div className="container lg:pl-40 px-6 py-24 lg:pt-36">
+
+                {/* heading */}
+                <div className="contact-heading mb-16">
+                    <h2 className="text-3xl font-light uppercase mb-2">Contact</h2>
+                    <hr className="border-t border-border" />
+                </div>
+
+                {/* main grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 mb-24">
+
+                    {/* form */}
+                    <div className="contact-form border border-muted p-10">
+                        <p className="text-2xl uppercase tracking-widest text-muted font-light mb-8">
+                            Send me a message
+                        </p>
+
+                        {sent ? (
+                            <div className="flex flex-col gap-4 py-16">
+                                <span className="text-3xl font-light uppercase text-foreground">Message sent.</span>
+                                <p className="text-sm text-muted font-light">I'll get back to you soon.</p>
+                            </div>
+                        ) : (
+                            <form onSubmit={handleSubmit} className="flex flex-col gap-8">
+
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-xs uppercase tracking-widest text-muted font-light">Name</label>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        required
+                                        placeholder="Your name"
+                                        className="bg-transparent border-b border-border text-foreground text-sm font-light py-3 outline-none placeholder:text-muted focus:border-foreground transition-colors duration-200 w-full"
+                                    />
+                                </div>
+
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-xs uppercase tracking-widest text-muted font-light">Email</label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        required
+                                        placeholder="your@email.com"
+                                        className="bg-transparent border-b border-border text-foreground text-sm font-light py-3 outline-none placeholder:text-muted focus:border-foreground transition-colors duration-200 w-full"
+                                    />
+                                </div>
+
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-xs uppercase tracking-widest text-muted font-light">Message</label>
+                                    <textarea
+                                        name="message"
+                                        required
+                                        rows={5}
+                                        placeholder="What's on your mind..."
+                                        className="bg-transparent border-b border-border text-foreground text-sm font-light py-3 outline-none placeholder:text-muted focus:border-foreground transition-colors duration-200 resize-none w-full"
+                                    />
+                                </div>
+
+                                {error && (
+                                    <p className="text-xs text-red-400">Something went wrong. Please try again.</p>
+                                )}
+
+                                <button
+                                    type="submit"
+                                    disabled={loading}
+                                    className="mt-2 self-start text-xs uppercase tracking-widest font-light px-8 py-3 border border-border text-foreground hover:bg-foreground hover:text-background transition-all duration-300 disabled:opacity-40"
+                                >
+                                    {loading ? 'Sending...' : 'Send ↗'}
+                                </button>
+
+                            </form>
+                        )}
+                    </div>
+
+                    {/* info */}
+                    <div className="flex flex-col gap-10 mt-10">
+                        {infoRows.map((row, i) => (
+                            <React.Fragment key={row.label}>
+                                <InfoRow {...row} />
+                                {i < infoRows.length - 1 && <hr className="border-t border-border" />}
+                            </React.Fragment>
+                        ))}
+                    </div>
+
+                </div>
+
+                {/* connect */}
+                <div>
+                    <p className="text-xs uppercase tracking-widest text-muted font-light mb-2">
+                        Connect with me
+                    </p>
+                    <hr className="border-t border-border" />
+                    <div className="flex flex-col sm:flex-row">
+                        {connectLinks.map((link, i) => (
+                            <React.Fragment key={link.label}>
+                                <ConnectItem {...link} />
+                                {i < connectLinks.length - 1 && <div className="hidden sm:block w-px bg-border" />}
+                            </React.Fragment>
+                        ))}
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    )
 }
 
 export default GetInTouch

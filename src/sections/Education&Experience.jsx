@@ -30,8 +30,8 @@ const timelineData = [
         title: 'Cambodia Academy of Digital Technology (CADT)',
         period: '2023 - 2027',
         icon: FaGraduationCap,
-        description: 'Bachelor of Computer Science. Expected Graduation: 2026.',
-        tags: ['B.Sc Computer Science', 'Expected 2026'],
+        description: 'Bachelor of Computer Science. Expected Graduation: 2027.',  
+        tags: ['B.Sc Computer Science', 'Expected 2027'],                          
         box: {
             highlight: 'Bachelor of Computer Science',
             detail: 'Studying at CADT with a focus on mobile development, frontend technologies, and UI/UX design principles.'

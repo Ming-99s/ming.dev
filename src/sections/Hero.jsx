@@ -160,18 +160,14 @@ function Hero() {
 
 
                                             </div>
-                                            <div ref={containerRef} className='relative flex flex-row justify-between px-2 gap-4 w-full items-center pt-10 lg:justify-end lg:gap-8'>
-                                                <a href='#' className='icon'> <FaGithub size={32} className="text-foreground" /></a>
-                                                <a href='#' className='icon'><FaSquareFacebook size={32} className="text-foreground" /></a>
-                                                <a href='#' className='icon'><FaSquareInstagram size={32} className="text-foreground" /></a>
-                                                <a href='#' className='icon'><FaLinkedin size={32} className="text-foreground" /></a>
-                                                <a href='#' className='icon'><SiGmail size={32} className="text-foreground" /></a>
+                                            <div ref={containerRef} className='relative z-50 flex flex-row justify-between px-2 gap-4 w-full items-center pt-10 lg:justify-end lg:gap-8'>
+                                                <a href='https://github.com/Ming-99s' className='icon'> <FaGithub size={32} className="text-foreground" /></a>
+                                                <a href='https://www.facebook.com/ming.123142' className='icon'><FaSquareFacebook size={32} className="text-foreground" /></a>
+                                                <a href='https://www.instagram.com/lyminggg_/' className='icon'><FaSquareInstagram size={32} className="text-foreground" /></a>
+                                                <a href='https://www.linkedin.com/in/ming-lyy-67a2bb372/' className='icon'><FaLinkedin size={32} className="text-foreground" /></a>
+                                                <a href='mailto:Lyming4999@gmail.com' className='icon'><SiGmail size={32} className="text-foreground" /></a>
                                                 
-                                                
-                                                
-                                                
-                                                
-
+                                            
                                             </div>
 
                                         </div>
