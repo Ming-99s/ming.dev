@@ -202,7 +202,7 @@ function Hero() {
                             <IoMdArrowForward size={32} className='font-thin'/>  
                         </Link>
 
-                        <Link to='/contact' className='bottom flex text-foreground pb-10  hover:text-gray-400 transition duration-300'>
+                        <Link to='/GetInTouch' className='bottom flex text-foreground pb-10  hover:text-gray-400 transition duration-300'>
                             <h1 className='text-2xl'>Contact</h1>
                             <IoMdArrowForward size={32} className='font-thin' />
                         </Link>
