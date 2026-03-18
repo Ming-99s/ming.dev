@@ -497,13 +497,22 @@ const ProjectsSection = () => {
                   </div>
                   <div className="flex gap-6">
                     {project.live ? (
-                      <a href={project.live} target="_blank" rel="noopener noreferrer"
-                        className="text-xs uppercase tracking-widest text-foreground hover:text-foreground transition-colors font-light">Live <BsBoxArrowUpRight size={10}/></a>
+                      <div className='flex justify-center items-center gap-2'>
+
+                        <a href={project.live} target="_blank" rel="noopener noreferrer"
+                          className="text-xs uppercase tracking-widest text-foreground hover:text-foreground transition-colors font-light">Live </a>
+                        
+                        <BsBoxArrowUpRight size={10} />
+                      </div>
                     ) : project.platform ? (
                       <span className="text-xs px-3 py-1 border border-border text-muted font-light uppercase">{project.platform}</span>
                     ) : null}
+                    <div className='flex items-center justify-center gap-2'>
+
                     <a href={project.github} target="_blank" rel="noopener noreferrer"
-                      className="text-xs uppercase tracking-widest text-muted hover:text-foreground transition-colors font-light">GitHub <BsBoxArrowUpRight size={10}/></a>
+                        className="text-xs uppercase tracking-widest text-muted hover:text-foreground transition-colors font-light">GitHub </a>
+                      <BsBoxArrowUpRight size={10} />
+                    </div>
                   </div>
                 </div>
 
