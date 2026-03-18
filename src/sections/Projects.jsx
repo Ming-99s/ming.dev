@@ -5,6 +5,7 @@ import Navbar from './Navbar.jsx'
 import { useRef, useState, useEffect } from 'react'
 import { IoMdArrowForward } from "react-icons/io";
 import { Link } from 'react-router-dom'
+import { BsBoxArrowUpRight } from "react-icons/bs";
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -258,8 +259,8 @@ const PosterMarquee = () => {
       )}
 
       {posterGroups.map((group) => (
-        <div key={group.company} className="pb-20">
-          <div className="mb-4">
+        <div key={group.company} className="pb-20 ">
+          <div className="mb-4 lg:px-0 px-5">
             <span className="uppercase text-foreground text-xl mr-2">{group.company}</span>
             <span className="text-muted text-sm">{group.year}</span>
           </div>
@@ -433,21 +434,30 @@ const ProjectsSection = () => {
                         </span>
                       ))}
                     </div>
-                    <div className="flex gap-6">
+                    <div className="flex gap-4">
                       {project.live ? (
-                        <a href={project.live} target="_blank" rel="noopener noreferrer"
-                          className="text-xs uppercase tracking-widest text-foreground hover:text-primary transition-colors duration-200 flex items-center gap-2 font-light">
-                          Live ↗
-                        </a>
+                        <div className='flex items-center gap-2 justify-center'>
+
+                          <a href={project.live} target="_blank" rel="noopener noreferrer"
+                            className=" text-xs uppercase ext-foreground hover:text-foreground transition-colors duration-200 font-light">
+                            Live 
+                          </a>
+                          <BsBoxArrowUpRight size={10} />
+                        </div>
                       ) : project.platform ? (
                         <span className="text-xs px-3 py-1 border border-border text-muted font-light uppercase tracking-wide">
                           {project.platform}
                         </span>
                       ) : null}
+                      <div className='flex items-center justify-center gap-2'>
+
+
                       <a href={project.github} target="_blank" rel="noopener noreferrer"
-                        className="text-xs uppercase tracking-widest text-muted hover:text-foreground transition-colors duration-200 flex items-center gap-2 font-light">
-                        GitHub ↗
-                      </a>
+                        className="text-xs uppercase text-muted hover:text-foreground transition-colors duration-200  font-light">
+                        GitHub 
+                        </a>
+                        <BsBoxArrowUpRight size={10} />
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -462,8 +472,8 @@ const ProjectsSection = () => {
                     <span className="text-xs px-3 py-1">tag two</span>
                   </div>
                   <div className="flex gap-6">
-                    <span className="text-xs">Live ↗</span>
-                    <span className="text-xs">GitHub ↗</span>
+                    <span className="text-xs">Live <BsBoxArrowUpRight size={10}/></span>
+                    <span className="text-xs">GitHub <BsBoxArrowUpRight size={10}/></span>
                   </div>
                 </div>
               </div>
@@ -488,12 +498,12 @@ const ProjectsSection = () => {
                   <div className="flex gap-6">
                     {project.live ? (
                       <a href={project.live} target="_blank" rel="noopener noreferrer"
-                        className="text-xs uppercase tracking-widest text-foreground hover:text-primary transition-colors font-light">Live ↗</a>
+                        className="text-xs uppercase tracking-widest text-foreground hover:text-foreground transition-colors font-light">Live <BsBoxArrowUpRight size={10}/></a>
                     ) : project.platform ? (
                       <span className="text-xs px-3 py-1 border border-border text-muted font-light uppercase">{project.platform}</span>
                     ) : null}
                     <a href={project.github} target="_blank" rel="noopener noreferrer"
-                      className="text-xs uppercase tracking-widest text-muted hover:text-foreground transition-colors font-light">GitHub ↗</a>
+                      className="text-xs uppercase tracking-widest text-muted hover:text-foreground transition-colors font-light">GitHub <BsBoxArrowUpRight size={10}/></a>
                   </div>
                 </div>
 
@@ -513,7 +523,7 @@ const ProjectsSection = () => {
         </div>
 
         {/* Graphic Design heading */}
-        <div className="graphic-heading mb-16 lg:pt-40">
+        <div className="graphic-heading mb-16 px-5 lg:pt-40">
           <h2 className="text-3xl font-light mb-2 uppercase">Graphic Design</h2>
           <hr className="border-t border-border" />
         </div>
@@ -523,7 +533,7 @@ const ProjectsSection = () => {
 
         {/* Thank you */}
         <section className="min-h-screen uppercase flex justify-center items-center">
-          <h1 className="text-3xl thank-you ">thank you for visiting</h1>
+          <h1 className="text-3xl thank-you text-center  ">thank you for visiting</h1>
         </section>
 
       </div>

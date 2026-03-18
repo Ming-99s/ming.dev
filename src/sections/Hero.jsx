@@ -160,7 +160,7 @@ function Hero() {
 
 
                                             </div>
-                                            <div ref={containerRef} className='relative z-50 flex flex-row justify-between px-2 gap-4 w-full items-center pt-10 lg:justify-end lg:gap-8'>
+                                            <div ref={containerRef} className='relative z-10 flex flex-row justify-between px-2 gap-4 w-full items-center pt-10 lg:justify-end lg:gap-8'>
                                                 <a href='https://github.com/Ming-99s' className='icon'> <FaGithub size={32} className="text-foreground" /></a>
                                                 <a href='https://www.facebook.com/ming.123142' className='icon'><FaSquareFacebook size={32} className="text-foreground" /></a>
                                                 <a href='https://www.instagram.com/lyminggg_/' className='icon'><FaSquareInstagram size={32} className="text-foreground" /></a>

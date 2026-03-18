@@ -138,7 +138,7 @@ function Navbar() {
                             key={to}
                             to={to}
                             onClick={() => setMenuOpen(false)}
-                            className="hover:text-primary transition-colors duration-200"
+                            className="hover:text-foreground transition-colors duration-200"
                         >
                             {label}
                         </Link>
