@@ -4,6 +4,7 @@ import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { FaGithub, FaSquareFacebook, FaSquareInstagram, FaLinkedin } from 'react-icons/fa6'
+import { BsBoxArrowUpRight } from "react-icons/bs";
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -19,8 +20,8 @@ const INFO = {
     instagramLink: 'https://www.instagram.com/lyminggg_/',
     facebook: 'Ming',
     facebookLink: 'https://www.facebook.com/ming.123142',
-    linkedin: 'Ming Lyy',
-    linkedinLink: 'https://www.linkedin.com/in/ming-lyy-67a2bb372/',
+    linkedin: 'Pheng Lyming',
+    linkedinLink: 'https://www.linkedin.com/in/pheng-lyming-67a2bb372/',
 }
 
 // ─── data ────────────────────────────────────────────────────────
@@ -50,7 +51,7 @@ const InfoRow = ({ label, value, href }) => (
                 className="text-xl font-light text-foreground hover:text-foreground transition-colors duration-200 inline-flex items-center gap-3"
             >
                 {value}
-                {href.startsWith('http') && <span className="text-muted text-sm">↗</span>}
+                {href.startsWith('http') && <span className="text-muted text-sm"><BsBoxArrowUpRight size={12}/></span>}
             </a>
         ) : (
             <p className="text-xl font-light text-foreground">{value}</p>
@@ -76,7 +77,7 @@ const ConnectItem = ({ href, icon, label, username }) => {
                     </span>
                 </div>
             </div>
-            <span className="text-muted group-hover:text-foreground transition-colors duration-200 text-lg">↗</span>
+            <span className="text-muted group-hover:text-foreground transition-colors duration-200 text-lg"><BsBoxArrowUpRight size={12} /></span>
         </a>
     )
 }
@@ -206,7 +207,7 @@ const GetInTouch = () => {
                                     disabled={loading}
                                     className="mt-2 self-start text-xs uppercase tracking-widest font-light px-8 py-3 border border-border text-foreground hover:bg-foreground hover:text-background transition-all duration-300 disabled:opacity-40"
                                 >
-                                    {loading ? 'Sending...' : 'Send ↗'}
+                                    {loading ? 'Sending...' : 'Send' }
                                 </button>
 
                             </form>
