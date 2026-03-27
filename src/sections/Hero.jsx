@@ -164,7 +164,7 @@ function Hero() {
                                                 <a href='https://github.com/Ming-99s' className='icon'> <FaGithub size={32} className="text-foreground" /></a>
                                                 <a href='https://www.facebook.com/ming.123142' className='icon'><FaSquareFacebook size={32} className="text-foreground" /></a>
                                                 <a href='https://www.instagram.com/lyminggg_/' className='icon'><FaSquareInstagram size={32} className="text-foreground" /></a>
-                                                <a href='https://www.linkedin.com/in/ming-lyy-67a2bb372/' className='icon'><FaLinkedin size={32} className="text-foreground" /></a>
+                                                <a href='https://www.linkedin.com/in/pheng-lyming-67a2bb372/' className='icon'><FaLinkedin size={32} className="text-foreground" /></a>
                                                 <a href='mailto:Lyming4999@gmail.com' className='icon'><SiGmail size={32} className="text-foreground" /></a>
                                                 
                                             
